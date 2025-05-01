@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booleans</title>
+  </head>
+  <body>
+    <p>Rock Paper Scissors</p>
+    <button onclick="
+      let rand = Math.floor(Math.random() * 3 + 1);
+      alert(result(1,rand));
+    ">Rock</button>
+    <button onclick="
+      rand = Math.floor(Math.random() * 3 + 1);
+      alert(result(2,rand));
+    ">Paper</button>
+    <button onclick="
+      rand = Math.floor(Math.random() * 3 + 1);
+      alert(result(3,rand));
+    ">Scissors</button>
+    <script>
+      function type(num){
+        if(num === 1){
+          return 'rock';
+        } else if(num === 2){
+          return 'paper';
+        } else {
+          return 'scissors';
+        }
+      }
+
+      function result(pick, cRand){
+        let result = 'win';
+        if(pick === cRand){
+          result = 'tie';
+        } else if(pick + 1 === cRand){
+          result = 'lose';
+        }
+
+        myType = type(pick);
+        cType = type(cRand);
+
+        if(cRand === 1){
+          return `You picked ${myType}. Computer picked ${cType}. You ${result}.`;
+        } else if(cRand === 2){
+          return `You picked ${myType}. Computer picked ${cType}. You ${result}.`;
+        } else {
+          return `You picked ${myType}. Computer picked ${cType}. You ${result}.`;
+        }
+      }
+    </script>
+  </body>
+
+</html>
+
+
+
+
