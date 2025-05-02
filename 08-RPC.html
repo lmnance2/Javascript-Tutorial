@@ -17,7 +17,21 @@
       rand = Math.floor(Math.random() * 3 + 1);
       alert(result(3,rand));
     ">Scissors</button>
+    <button onClick ="
+      score.win = 0;
+      score.tie = 0;
+      score.loss = 0;
+      localStorage.removeItem('score');
+      
+      alert(`Wins: ${score.win}, Losses: ${score.loss}, Ties: ${score.tie}`);
+    ">Reset</button>
     <script>
+      let score = JSON.parse(localStorage.getItem('score')) || {
+          win: 0,
+          loss: 0,
+          tie: 0
+        };
+
       function type(num){
         if(num === 1){
           return 'rock';
@@ -32,22 +46,26 @@
         let result = 'win';
         if(pick === cRand){
           result = 'tie';
+          score.tie++;
         } else if(pick + 1 === cRand){
           result = 'lose';
+          score.loss++;
+        }
+        if(result === 'win'){
+          score.win++;
         }
 
+        localStorage.setItem('score', JSON.stringify(score));
         myType = type(pick);
         cType = type(cRand);
 
 
-        if(cRand === 1){
-          return `You picked ${myType}. Computer picked ${cType}. You ${result}.`;
-        } else if(cRand === 2){
-          return `You picked ${myType}. Computer picked ${cType}. You ${result}.`;
-        } else {
-          return `You picked ${myType}. Computer picked ${cType}. You ${result}.`;
-        }
+        let toReturn = `You picked ${myType}. Computer picked ${cType}. You ${result}.\n Wins: ${score.win}, Losses: ${score.loss}, Ties: ${score.tie}`;
+        return toReturn;
       }
+
+      
+
     </script>
   </body>
 

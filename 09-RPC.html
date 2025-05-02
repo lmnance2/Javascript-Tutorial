@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booleans</title>
+  </head>
+  <body>
+    <p>Rock Paper Scissors</p>
+    <button onclick="
+      let rand = Math.floor(Math.random() * 3 + 1);
+      result(1,rand);
+    ">Rock</button>
+    <button onclick="
+      rand = Math.floor(Math.random() * 3 + 1);
+      result(2,rand);
+    ">Paper</button>
+    <button onclick="
+      rand = Math.floor(Math.random() * 3 + 1);
+      result(3,rand);
+    ">Scissors</button>
+    <p class = 'resultText'></p>
+    <p class = 'scoreUpdate'></p>
+    <button onClick ="
+      score.win = 0;
+      score.tie = 0;
+      score.loss = 0;
+      localStorage.removeItem('score');
+
+      updateScoreElement();
+      
+    ">Reset Score</button>
+    <script>
+      let score = JSON.parse(localStorage.getItem('score')) || {
+          win: 0,
+          loss: 0,
+          tie: 0
+        };
+
+      updateScoreElement();
+      
+      function type(num){
+        if(num === 1){
+          return 'rock';
+        } else if(num === 2){
+          return 'paper';
+        } else {
+          return 'scissors';
+        }
+      }
+
+      function result(pick, cRand){
+        let result = 'win';
+        if(pick === cRand){
+          result = 'tie';
+          score.tie++;
+        } else if(pick + 1 === cRand){
+          result = 'lose';
+          score.loss++;
+        }
+        if(result === 'win'){
+          score.win++;
+        }
+
+        localStorage.setItem('score', JSON.stringify(score));
+      
+        updateScoreElement();
+
+        myType = type(pick);
+        cType = type(cRand);
+
+
+        let toReturn = `You picked ${myType}. Computer picked ${cType}. You ${result}.\n Wins: ${score.win}, Losses: ${score.loss}, Ties: ${score.tie}`;
+        return toReturn;
+      }
+
+      function updateScoreElement(){
+        document.querySelector('.scoreUpdate').innerHTML = `Wins: ${score.win}, Losses: ${score.loss}, Ties: ${score.tie}`;
+
+        document.querySelector('.resultText').innerHTML = `You picked ${myType}. Computer picked ${cType}. You ${result}.\n Wins: ${score.win}, Losses: ${score.loss}, Ties: ${score.tie}`
+      }
+
+      
+
+    </script>
+  </body>
+
+</html>
+
+
+
+
