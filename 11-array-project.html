@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arrays Project</title>
+    <style>
+      .task-input {
+        height: 30px;
+        width: 200px;
+        margin-right: 5px;
+      }
+      .date-input {
+        height: 30px;
+        width: 200px;
+        margin-right: 5px;
+      }
+      .add-button {
+        height: 30px;
+        width: 100px;
+        background-color: green;
+        color:white;
+      }
+      .delete-button {
+        height: 30px;
+        width: 100px;
+        background-color: red;
+        color:white;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Todo List</p>
+    <input type="text" placeholder="Todo name" id="task_input" class ="task-input">
+    <input type="date" placeholder="yyyy-mm-dd" id="date_input" class="date-input">
+    <button class="add-button" onclick="
+      addTask();
+    ">Add</button>
+    <div class="output-list"></div>
+    <script>
+      let myArray = [];
+      function addTask(){
+
+        const task = document.querySelector(".task-input");
+        const date = document.querySelector(".date-input");
+
+        const taskInput = task.value;
+        const dateInput = date.value;
+
+        const event = {
+          task: taskInput,
+          date: dateInput
+        }
+
+        myArray.push(event);
+
+        let secondArray = [];
+
+        let toPrint = '';
+        for(let i = 0; i < myArray.length; i++){
+          secondArray.push(myArray[i].task + "\t" + myArray[i].date + "\n");
+        }
+
+        for(let i = 0; i < secondArray.length; i++){
+          const todo = secondArray[i];
+          const html = `<p>${todo}<button class="delete-button" onclick="
+            myArray.splice(${i},1);
+            renderList();
+          ">Delete</button></p>`;
+          toPrint += html;
+        }
+        document.querySelector(".output-list").innerHTML = toPrint;
+
+        task.value = '';
+        date.value = '';
+      }
+
+      function renderList(){
+        let secondArray = [];
+
+        let toPrint = '';
+        for(let i = 0; i < myArray.length; i++){
+          secondArray.push(myArray[i].task + "\t\t\t\t\t\t\t" + myArray[i].date + "\n");
+        }
+
+        for(let i = 0; i < secondArray.length; i++){
+          const todo = secondArray[i];
+          const html = `<p>${todo}<button class="delete-button" onclick="
+            myArray.splice(${i},1);
+            renderList();
+          ">Delete</button></p>`;
+          toPrint += html;
+        }
+        document.querySelector(".output-list").innerHTML = toPrint;
+      }
+      
+    </script>
+  </body>
+
+</html>
+
+
+
+
